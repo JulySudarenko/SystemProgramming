@@ -12,6 +12,14 @@ namespace Code.FirstLesson
             {
                 CancellationToken tokenLink = tokenLinks.Token;
                 Task finishedTask = await Task.WhenAny(task1, task2);
+                
+                if (token.IsCancellationRequested)
+                {
+                    Debug.Log(false);
+                    tokenLinks.Cancel();
+                    return;
+                }
+
                 if (finishedTask == task1)
                 {
                     Debug.Log(true);
@@ -20,6 +28,7 @@ namespace Code.FirstLesson
                 {
                     Debug.Log(false);
                 }
+
                 tokenLinks.Cancel();
             }
         }

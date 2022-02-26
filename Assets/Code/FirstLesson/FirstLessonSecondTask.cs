@@ -13,18 +13,18 @@ namespace Code.FirstLesson
         {
             using (CancellationTokenSource linkedToken = CancellationTokenSource.CreateLinkedTokenSource(token))
             {
-                if (token.IsCancellationRequested)
-                {
-                    Debug.Log(_cancelFirstMessage);
-                    return;
-                }
-
-                await Task.Delay(time);
                 // if (token.IsCancellationRequested)
                 // {
                 //     Debug.Log(_cancelFirstMessage);
                 //     return;
                 // }
+
+                await Task.Delay(time);
+                if (token.IsCancellationRequested)
+                {
+                    Debug.Log(_cancelFirstMessage);
+                    return;
+                }
                 Debug.Log(message);
                 linkedToken.Cancel();
             }
@@ -34,19 +34,19 @@ namespace Code.FirstLesson
         {
             using (CancellationTokenSource linkedToken = CancellationTokenSource.CreateLinkedTokenSource(token))
             {
-                if (token.IsCancellationRequested)
-                {
-                    Debug.Log(_cancelSecondMessage);
-                    return;
-                }
+                // if (token.IsCancellationRequested)
+                // {
+                //     Debug.Log(_cancelSecondMessage);
+                //     return;
+                // }
 
                 while (frames > 0)
                 {
-                    // if (token.IsCancellationRequested)
-                    // {
-                    //     Debug.Log(_cancelSecondMessage);
-                    //     return;
-                    // }
+                    if (token.IsCancellationRequested)
+                    {
+                        Debug.Log(_cancelSecondMessage);
+                        return;
+                    }
                     
                     frames--;
                     await Task.Yield();
