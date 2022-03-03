@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2fc46ac-6e0b-4312-9fe1-c882c489c976" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonMain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonMain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonSecondTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonSecondTask.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonThirdTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonThirdTask.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +26,7 @@
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonThirdTask.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonSecondTask.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonMain.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/SecondLesson/SecondLessonMain.cs" />
       </list>
     </option>
   </component>
