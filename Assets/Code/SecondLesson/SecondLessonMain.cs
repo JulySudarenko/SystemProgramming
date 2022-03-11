@@ -37,8 +37,6 @@ namespace Code.SecondLesson
             JobHandle jobHandleSecondTask = jobSecondTask.Schedule(finalPositions.Length, 0);
             jobHandleSecondTask.Complete();
 
-            //jobSecondTask.Execute(0);
-
             jobSecondTask.Positions.Dispose();
             jobSecondTask.Velocities.Dispose();
             jobSecondTask.FinalPositions.Dispose();
