@@ -22,7 +22,11 @@
     <list default="true" id="f2fc46ac-6e0b-4312-9fe1-c882c489c976" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/SecondLesson/SecondLessonMain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/SecondLesson/SecondLessonMain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +50,8 @@
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonMain.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/SecondLesson/SecondLessonMain.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/ThirdLessonMain.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" />
       </list>
     </option>
@@ -66,6 +72,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../!SaveBuild/SystProgV1\SystemProgramming.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\geekbrains.ru\Projects\Unity\!SaveBuild\SystProgV1" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />

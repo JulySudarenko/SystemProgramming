@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -48,10 +49,22 @@ namespace Code.ThirdLesson
                     switch (recData)
                     {
                         case NetworkEventType.DataEvent:
+                            string message = Encoding.Unicode.GetString(recBuffer, 0, dataSize);
+
+                            SendMessageToAll($"Player {connectionID} : {message}");
+                            Debug.Log($"Player {connectionID} : {message}");
                             break;
                         case NetworkEventType.ConnectEvent:
+                            _connectionIDs.Add(connectionID);
+
+                            SendMessageToAll($"Player {connectionID} has connected.");
+                            Debug.Log($"Player {connectionID} has connected.");
                             break;
                         case NetworkEventType.DisconnectEvent:
+                            _connectionIDs.Remove(connectionID);
+
+                            SendMessageToAll($"Player {connectionID} has disconnected.");
+                            Debug.Log($"Player {connectionID} has disconnected.");
                             break;
                         case NetworkEventType.Nothing:
                             break;
@@ -60,12 +73,41 @@ namespace Code.ThirdLesson
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
+                    recData = NetworkTransport.Receive(out recHostID, out connectionID, out channelID,
+                        recBuffer, bufferSize, out dataSize, out _error);
                 }
             }
         }
 
         public void ShutDownServer()
         {
+            if (_isStarted)
+            {
+                NetworkTransport.RemoveHost(_hostID);
+                NetworkTransport.Shutdown();
+                _isStarted = false;
+            }
+        }
+
+        public void SendMessage(string message, int connectionID)
+        {
+            byte[] buffer = Encoding.Unicode.GetBytes(message);
+
+            NetworkTransport.Send(_hostID, connectionID, _reliableChannel, buffer, message.Length * sizeof(char),
+                out _error);
+            if ((NetworkError) _error != NetworkError.Ok)
+            {
+                Debug.Log((NetworkError) _error);
+            }
+        }
+
+        public void SendMessageToAll(string message)
+        {
+            for (int i = 0; i < _connectionIDs.Count; i++)
+            {
+                SendMessage(message, _connectionIDs[i]);
+            }
         }
     }
 }

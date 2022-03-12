@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 namespace Code.ThirdLesson
@@ -25,7 +24,7 @@ namespace Code.ThirdLesson
             _buttonDisconnectClient.onClick.AddListener(() => Disconnect());
             _buttonSendMessage.onClick.AddListener(() => SendMessage());
             _inputField.onEndEdit.AddListener((text) => SendMessage());
-            //_client.onMessageRecieve += ReceiveMessage();
+            _client.ONMessageReceive += ReceiveMessage;
         }
 
         private void StartServer() => _server.StartServer();
@@ -39,6 +38,6 @@ namespace Code.ThirdLesson
             _inputField.text = "";
         }
 
-        //public void ReceiveMessage(object message) => _textField.ReceiveMessage(message);
+        public void ReceiveMessage(object message) => _textField.ReceiveMessage(message);
     }
 }
