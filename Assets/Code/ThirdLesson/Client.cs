@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,6 +10,7 @@ namespace Code.ThirdLesson
         public delegate void OnMessageReceive(object message);
 
         public event OnMessageReceive ONMessageReceive;
+        public Action OnConnection;
 
         private const int MAX_CONNECTION = 10;
 
@@ -72,7 +74,9 @@ namespace Code.ThirdLesson
 
                     case NetworkEventType.ConnectEvent:
                         ONMessageReceive?.Invoke($"You have been connected to server.");
+                        OnConnection?.Invoke();
                         Debug.Log($"You have been connected to server.");
+                        
                         break;
 
                     case NetworkEventType.DataEvent:
@@ -88,7 +92,6 @@ namespace Code.ThirdLesson
                         break;
 
                     case NetworkEventType.BroadcastEvent:
-
                         break;
                 }
 

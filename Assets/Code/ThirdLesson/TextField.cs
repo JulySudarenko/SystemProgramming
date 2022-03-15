@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,12 +10,12 @@ namespace Code.ThirdLesson
     {
         [SerializeField] private TextMeshProUGUI _textObject;
         [SerializeField] private Scrollbar _scrollbar;
-        
+
         private List<string> messages = new List<string>();
 
         private void Start()
         {
-            _scrollbar.onValueChanged.AddListener((float value)=> UpdateText());
+            _scrollbar.onValueChanged.AddListener((float value) => UpdateText());
         }
 
         public void ReceiveMessage(object message)
@@ -27,12 +28,13 @@ namespace Code.ThirdLesson
 
         public void UpdateText()
         {
-            string text = "";
-            int index = (int)(messages.Count * _scrollbar.value);
+            string text = String.Empty;
+            int index = (int) (messages.Count * _scrollbar.value);
             for (int i = index; i < messages.Count; i++)
             {
                 text += messages[i] + "\n";
             }
+
             _textObject.text = text;
         }
     }

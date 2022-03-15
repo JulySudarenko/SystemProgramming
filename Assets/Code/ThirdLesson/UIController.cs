@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -15,6 +16,7 @@ namespace Code.ThirdLesson
         [SerializeField] private TextField _textField;
         [SerializeField] private Server _server;
         [SerializeField] private Client _client;
+        [SerializeField] private UserNameInput _userName;
 
         private void Start()
         {
@@ -25,6 +27,7 @@ namespace Code.ThirdLesson
             _buttonSendMessage.onClick.AddListener(() => SendMessage());
             _inputField.onEndEdit.AddListener((text) => SendMessage());
             _client.ONMessageReceive += ReceiveMessage;
+
         }
 
         private void StartServer() => _server.StartServer();

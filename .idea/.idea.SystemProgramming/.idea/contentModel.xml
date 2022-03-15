@@ -21,6 +21,7 @@
             <e p="Server.cs" t="Include" />
             <e p="TextField.cs" t="Include" />
             <e p="UIController.cs" t="Include" />
+            <e p="UserNameInput.cs" t="Include" />
           </e>
         </e>
         <e p="Se.cs" t="Include" />

@@ -15,7 +15,8 @@ namespace Code.ThirdLesson
         private bool _isStarted = false;
         private byte _error;
 
-        List<int> _connectionIDs = new List<int>();
+        private List<int> _connectionIDs = new List<int>();
+        private Dictionary<int, string> _userNameData = new Dictionary<int, string>();
 
         public void StartServer()
         {
@@ -50,13 +51,19 @@ namespace Code.ThirdLesson
                     {
                         case NetworkEventType.DataEvent:
                             string message = Encoding.Unicode.GetString(recBuffer, 0, dataSize);
-
-                            SendMessageToAll($"Player {connectionID} : {message}");
-                            Debug.Log($"Player {connectionID} : {message}");
+                            
+                            if (_userNameData[connectionID] == String.Empty)
+                            {
+                                _userNameData[connectionID] = message;
+                            }
+                            
+                            SendMessageToAll($"Player {_userNameData[connectionID]} : {message}");
+                            Debug.Log($"Player {_userNameData[connectionID]} : {message}");
                             break;
                         case NetworkEventType.ConnectEvent:
                             _connectionIDs.Add(connectionID);
-
+                            _userNameData.Add(connectionID, String.Empty);
+                            
                             SendMessageToAll($"Player {connectionID} has connected.");
                             Debug.Log($"Player {connectionID} has connected.");
                             break;
