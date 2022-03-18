@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f2fc46ac-6e0b-4312-9fe1-c882c489c976" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/TextField.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/TextField.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +39,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2D552240-2514-4CA8-8B0A-C27A51A25D45/f1/0f637121/NetworkTransport.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/825C30D4-A4CF-464C-B7EB-B8145854D1F8/22/48660822/EndPoint.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29AD182F-AA3F-478C-9310-D6A2E7143C15/25/7f8b28b4/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -27,6 +53,12 @@
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonSecondTask.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/FirstLesson/FirstLessonMain.cs" />
         <option value="$PROJECT_DIR$/Assets/Code/SecondLesson/SecondLessonMain.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/ThirdLessonMain.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/TextField.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/UIController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/UserNameInput.cs" />
+        <option value="$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs" />
       </list>
     </option>
   </component>
@@ -46,10 +78,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../!SaveBuild/SystProgV1\SystemProgramming.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\geekbrains.ru\Projects\Unity\!SaveBuild\SystProgV1" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17852">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="17852" />
       <option name="selectedOptions">
         <set />
       </option>
@@ -71,73 +111,130 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="279" key="GridCell.Tab.0.bottom" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.0.bottom" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.0.center" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.0.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.0.center" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.0.left" timestamp="1645820020864">
+    <state width="1493" height="279" key="GridCell.Tab.0.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.0.left" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020864" />
-    <state width="1493" height="279" key="GridCell.Tab.0.right" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.0.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.0.right" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.0.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.1.bottom" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.0.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.1.bottom" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.1.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.1.center" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.1.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.1.center" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.1.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.1.left" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.1.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.1.left" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.1.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.1.right" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.1.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.1.right" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.1.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.2.bottom" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.1.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.2.bottom" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.2.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.2.center" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.2.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.2.center" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.2.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.2.left" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.2.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.2.left" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.2.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.2.right" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.2.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.2.right" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.2.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.3.bottom" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.2.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.3.bottom" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.3.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.3.center" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.3.bottom/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.3.center" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.3.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.3.left" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.3.center/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.3.left" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.3.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
-    <state width="1493" height="279" key="GridCell.Tab.3.right" timestamp="1645820020865">
+    <state width="1493" height="279" key="GridCell.Tab.3.left/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+    <state width="1493" height="279" key="GridCell.Tab.3.right" timestamp="1647337531512">
       <screen x="1920" y="-154" width="1536" height="832" />
     </state>
-    <state width="1493" height="279" key="GridCell.Tab.3.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1645820020865" />
+    <state width="1493" height="279" key="GridCell.Tab.3.right/1920.-154.1536.832/0.0.1920.1040@1920.-154.1536.832" timestamp="1647337531512" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/ThirdLesson/TextField.cs</url>
+          <line>30</line>
+          <properties documentPath="D:\geekbrains.ru\Projects\Unity\SystemProgramming\Assets\Code\ThirdLesson\TextField.cs" initialLine="31">
+            <startOffsets>
+              <option value="817" />
+            </startOffsets>
+            <endOffsets>
+              <option value="844" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/ThirdLesson/Client.cs</url>
+          <line>75</line>
+          <properties documentPath="D:\geekbrains.ru\Projects\Unity\SystemProgramming\Assets\Code\ThirdLesson\Client.cs" initialLine="73">
+            <startOffsets>
+              <option value="2184" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2248" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/ThirdLesson/Server.cs</url>
+          <line>54</line>
+          <properties documentPath="D:\geekbrains.ru\Projects\Unity\SystemProgramming\Assets\Code\ThirdLesson\Server.cs" initialLine="54">
+            <startOffsets>
+              <option value="1784" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1832" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
