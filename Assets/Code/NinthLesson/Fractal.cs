@@ -1,10 +1,7 @@
-﻿using System;
-using Unity.Burst;
+﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
-
 
 namespace Code.NinthLesson
 {
@@ -120,7 +117,7 @@ namespace Code.NinthLesson
             Rotation = _rotations[childIndex],
         };
 
-        private void Update()
+        private void FixedUpdate()
         {
             _spinAngelDelta = _speedRotation * Time.deltaTime;
             var rootPart = _parts[0][0];
@@ -131,59 +128,32 @@ namespace Code.NinthLesson
             _matrices[0][0] = Matrix4x4.TRS(rootPart.WorldPosition, rootPart.WorldRotation, Vector3.one);
             _scale = 1.0f;
 
-            // for (var li = 1; li < _parts.Length; li++)
-            // {
-            //      _scale *= SCALE_BIAS;
-            //     var parentParts = _parts[li - 1];
-            //     var levelParts = _parts[li];
-            //     var levelMatrices = _matrices[li];
-            //
-            //     for (var fpi = 0; fpi < levelParts.Length; fpi++)
-            //     {
-            //         Calculate(parentParts, levelParts, levelMatrices, fpi);
-            //     }
-            // }
-
-            for (var li = 1; li < _parts.Length; li++)
-            {
-                ParallelCalculate(li);
-            }
-
+            ParallelCalculate();
             Bounds(rootPart);
         }
 
-        private void Calculate(FractalPart[] parentParts, FractalPart[] levelParts, Matrix4x4[] levelMatrices, int fpi)
+        private void ParallelCalculate()
         {
-            var parent = parentParts[fpi / CHILD_COUNT];
-            var part = levelParts[fpi];
-            part.SpinAngle += _spinAngelDelta;
-            _deltaRotation = Quaternion.Euler(.0f, part.SpinAngle, .0f);
-            part.WorldRotation = parent.WorldRotation * part.Rotation * _deltaRotation;
-            part.WorldPosition = parent.WorldPosition +
-                                 parent.WorldRotation * (POSITION_OFFSET * _scale * part.Direction);
-            levelParts[fpi] = part;
-            levelMatrices[fpi] = Matrix4x4.TRS(part.WorldPosition, part.WorldRotation, _scale * Vector3.one);
-        }
-
-        private void ParallelCalculate(int li)
-        {
-            _scale *= SCALE_BIAS;
-            var parentParts = _parts[li - 1];
-            var levelParts = _parts[li];
-            var levelMatrices = _matrices[li];
-
-            JobStructParallel parallelThread = new JobStructParallel
+            for (var li = 1; li < _parts.Length; li++)
             {
-                ParentParts = CreateFractalPartArray(parentParts, parentParts.Length),
-                LevelParts = CreateFractalPartArray(levelParts, levelParts.Length),
-                LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length)
-            };
-            JobHandle newJobHandle = parallelThread.Schedule(levelParts.Length, 0);
-            newJobHandle.Complete();
+                _scale *= SCALE_BIAS;
+                var parentParts = _parts[li - 1];
+                var levelParts = _parts[li];
+                var levelMatrices = _matrices[li];
 
-            parallelThread.LevelParts.Dispose();
-            parallelThread.ParentParts.Dispose();
-            parallelThread.LevelMatrices.Dispose();
+                JobStructParallel parallelThread = new JobStructParallel
+                {
+                    ParentParts = CreateFractalPartArray(parentParts, parentParts.Length),
+                    LevelParts = CreateFractalPartArray(levelParts, levelParts.Length),
+                    LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length)
+                };
+                JobHandle newJobHandle = parallelThread.Schedule(levelParts.Length, 0);
+                newJobHandle.Complete();
+
+                parallelThread.LevelParts.Dispose();
+                parallelThread.ParentParts.Dispose();
+                parallelThread.LevelMatrices.Dispose();
+            }
         }
 
         private void Bounds(FractalPart rootPart)
@@ -248,12 +218,11 @@ namespace Code.NinthLesson
 
             return matrices;
         }
-        
+
         [BurstCompile]
         public struct JobStructParallel : IJobParallelFor
         {
-            [ReadOnly]
-            public NativeArray<FractalPart> ParentParts;
+            [ReadOnly] public NativeArray<FractalPart> ParentParts;
             public NativeArray<FractalPart> LevelParts;
             public NativeArray<Matrix4x4> LevelMatrices;
 
@@ -264,33 +233,12 @@ namespace Code.NinthLesson
                 part.SpinAngle += _spinAngelDelta;
                 _deltaRotation = Quaternion.Euler(.0f, part.SpinAngle, .0f);
                 part.WorldRotation = parent.WorldRotation * part.Rotation * _deltaRotation;
-                part.WorldPosition = parent.WorldPosition + parent.WorldRotation * (POSITION_OFFSET * _scale * part.Direction);
+                part.WorldPosition = parent.WorldPosition +
+                                     parent.WorldRotation * (POSITION_OFFSET * _scale * part.Direction);
                 LevelParts[fpi] = part;
                 LevelMatrices[fpi] = Matrix4x4.TRS(part.WorldPosition, part.WorldRotation, _scale * Vector3.one);
             }
         }
-
     }
 }
-// исходник
-// for (var li = 1; li < _parts.Length; li++)
-// {
-// _scale *= SCALE_BIAS;
-//             
-// var parentParts = _parts[li - 1];
-// var levelParts = _parts[li];
-// var levelMatrices = _matrices[li];
-//
-//     for (var fpi = 0; fpi < levelParts.Length; fpi++)
-// {
-//     var parent = parentParts[fpi / CHILD_COUNT];
-//     var part = levelParts[fpi];
-//     part.SpinAngle += _spinAngelDelta;
-//     _deltaRotation = Quaternion.Euler(.0f, part.SpinAngle, .0f);
-//     part.WorldRotation = parent.WorldRotation * part.Rotation * _deltaRotation;
-//     part.WorldPosition = parent.WorldPosition +
-//                          parent.WorldRotation * (POSITION_OFFSET * _scale * part.Direction);
-//     levelParts[fpi] = part;
-//     levelMatrices[fpi] = Matrix4x4.TRS(part.WorldPosition, part.WorldRotation, _scale * Vector3.one);
-// }
-// }
+
