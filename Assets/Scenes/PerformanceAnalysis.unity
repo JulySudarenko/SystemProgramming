@@ -232,8 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   _material: {fileID: 2100000, guid: 40509b9b1dc9e6042ac38d0413bec619, type: 2}
-  _depth: 3
-  _speedRotation: 80
+  _depth: 6
+  _speedRotation: 60
 --- !u!1 &861638696
 GameObject:
   m_ObjectHideFlags: 0

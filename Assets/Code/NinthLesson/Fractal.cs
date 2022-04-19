@@ -120,14 +120,14 @@ namespace Code.NinthLesson
 
         private void Update()
         {
-            _spinAngleDelta = _speedRotation * 0.125f * PI * Time.deltaTime;
+            _spinAngleDelta = _speedRotation * PI * Time.deltaTime;
             _rootPart = _parts[0][0];
             _rootPart.SpinAngle += _spinAngleDelta;
             _rootPart.WorldRotation = mul(_rootPart.Rotation, quaternion.RotateY(_rootPart.SpinAngle));
             _parts[0][0] = _rootPart;
             _matrices[0][0] = float4x4.TRS(_rootPart.WorldPosition, _rootPart.WorldRotation, float3(Vector3.one));
             scale = 1.0f;
-            
+
             ParallelCalculate();
         }
 
