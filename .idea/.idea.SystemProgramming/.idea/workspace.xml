@@ -20,9 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2fc46ac-6e0b-4312-9fe1-c882c489c976" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SystemProgramming/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/NinthLesson/Fractal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/NinthLesson/Fractal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PerformanceAnalysis.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PerformanceAnalysis.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,19 +232,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/NinthLesson/Fractal.cs</url>
-          <line>173</line>
-          <properties documentPath="D:\geekbrains.ru\Projects\Unity\SystemProgramming\Assets\Code\NinthLesson\Fractal.cs" initialLine="169">
-            <startOffsets>
-              <option value="5801" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5830" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -35,6 +35,7 @@ namespace Code.NinthLesson
         private ComputeBuffer[] _matricesBuffers;
         private FractalPart _rootPart;
         private float _spinAngleDelta;
+        private float scale;
 
         private static readonly int MatricesId = Shader.PropertyToID("_Matrices");
         private static MaterialPropertyBlock _propertyBlock;
@@ -125,7 +126,8 @@ namespace Code.NinthLesson
             _rootPart.WorldRotation = mul(_rootPart.Rotation, quaternion.RotateY(_rootPart.SpinAngle));
             _parts[0][0] = _rootPart;
             _matrices[0][0] = float4x4.TRS(_rootPart.WorldPosition, _rootPart.WorldRotation, float3(Vector3.one));
-
+            scale = 1.0f;
+            
             ParallelCalculate();
         }
 
@@ -138,7 +140,6 @@ namespace Code.NinthLesson
         {
             for (var li = 1; li < _parts.Length; li++)
             {
-                var scale = 1.0f;
                 scale *= SCALE_BIAS;
                 var parentParts = _parts[li - 1];
                 var levelParts = _parts[li];
@@ -241,7 +242,7 @@ namespace Code.NinthLesson
         }
 
         [BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
-        public struct JobStructParallel : IJobParallelFor
+        private struct JobStructParallel : IJobParallelFor
         {
             [ReadOnly] public NativeArray<FractalPart> ParentParts;
             public NativeArray<FractalPart> LevelParts;
