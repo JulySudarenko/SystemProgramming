@@ -1,7 +1,12 @@
 ﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
+using static Unity.Mathematics.math;
+using float3 = Unity.Mathematics.float3;
+using float4x4 = Unity.Mathematics.float4x4;
+using quaternion = Unity.Mathematics.quaternion;
 
 namespace Code.NinthLesson
 {
@@ -9,16 +14,12 @@ namespace Code.NinthLesson
     {
         public struct FractalPart
         {
-            public Vector3 Direction;
-            public Quaternion Rotation;
-            public Vector3 WorldPosition;
-            public Quaternion WorldRotation;
+            public float3 Direction;
+            public quaternion Rotation;
+            public float3 WorldPosition;
+            public quaternion WorldRotation;
             public float SpinAngle;
         }
-
-        private static Quaternion _deltaRotation;
-        private static float _spinAngelDelta;
-        private static float _scale;
 
         [SerializeField] private Mesh _mesh;
         [SerializeField] private Material _material;
@@ -30,43 +31,41 @@ namespace Code.NinthLesson
         private const float SCALE_BIAS = .5f;
         private const int CHILD_COUNT = 5;
 
-
-        public FractalPart[][] _parts;
-        public Matrix4x4[][] _matrices;
+        private FractalPart[][] _parts;
+        private float4x4[][] _matrices;
         private ComputeBuffer[] _matricesBuffers;
 
         private static readonly int MatricesId = Shader.PropertyToID("_Matrices");
         private static MaterialPropertyBlock _propertyBlock;
 
-        private static readonly Vector3[] _directions =
+        private static readonly float3[] Directions =
         {
-            Vector3.up,
-            Vector3.left,
-            Vector3.right,
-            Vector3.forward,
-            Vector3.back
+            up(),
+            left(),
+            right(),
+            forward(),
+            back()
         };
 
-        private static readonly Quaternion[] _rotations =
+        private static readonly quaternion[] Rotations =
         {
-            Quaternion.identity,
-            Quaternion.Euler(.0f, .0f, 90.0f),
-            Quaternion.Euler(.0f, .0f, -90.0f),
-            Quaternion.Euler(90.0f, .0f, .0f),
-            Quaternion.Euler(-90.0f, .0f, .0f)
+            quaternion.identity,
+            quaternion.RotateZ(-0.5f * PI),
+            quaternion.RotateZ(0.5f * PI),
+            quaternion.RotateX(0.5f * PI),
+            quaternion.RotateX(-0.5f * PI)
         };
-
 
         private void OnEnable()
         {
             _parts = new FractalPart[_depth][];
-            _matrices = new Matrix4x4[_depth][];
+            _matrices = new float4x4[_depth][];
             _matricesBuffers = new ComputeBuffer[_depth];
             var stride = 16 * 4;
             for (int i = 0, length = 1; i < _parts.Length; i++, length *= CHILD_COUNT)
             {
                 _parts[i] = new FractalPart[length];
-                _matrices[i] = new Matrix4x4[length];
+                _matrices[i] = new float4x4[length];
                 _matricesBuffers[i] = new ComputeBuffer(length, stride);
             }
 
@@ -113,30 +112,29 @@ namespace Code.NinthLesson
 
         private FractalPart CreatePart(int childIndex) => new FractalPart
         {
-            Direction = _directions[childIndex],
-            Rotation = _rotations[childIndex],
+            Direction = Directions[childIndex],
+            Rotation = Rotations[childIndex],
         };
 
         private void FixedUpdate()
         {
-            _spinAngelDelta = _speedRotation * Time.deltaTime;
+            var spinAngelDelta = _speedRotation * PI * Time.deltaTime;
             var rootPart = _parts[0][0];
-            rootPart.SpinAngle += _spinAngelDelta;
-            _deltaRotation = Quaternion.Euler(.0f, rootPart.SpinAngle, .0f);
-            rootPart.WorldRotation = rootPart.Rotation * _deltaRotation;
+            rootPart.SpinAngle += spinAngelDelta;
+            rootPart.WorldRotation = mul(rootPart.Rotation, quaternion.RotateY(rootPart.SpinAngle));
             _parts[0][0] = rootPart;
-            _matrices[0][0] = Matrix4x4.TRS(rootPart.WorldPosition, rootPart.WorldRotation, Vector3.one);
-            _scale = 1.0f;
+            _matrices[0][0] = float4x4.TRS(rootPart.WorldPosition, rootPart.WorldRotation, float3(Vector3.one));
 
-            ParallelCalculate();
+            ParallelCalculate(spinAngelDelta);
             Bounds(rootPart);
         }
 
-        private void ParallelCalculate()
+        private void ParallelCalculate(float spinAngleDelta)
         {
             for (var li = 1; li < _parts.Length; li++)
             {
-                _scale *= SCALE_BIAS;
+                var scale = 1.0f;
+                scale *= SCALE_BIAS;
                 var parentParts = _parts[li - 1];
                 var levelParts = _parts[li];
                 var levelMatrices = _matrices[li];
@@ -145,7 +143,9 @@ namespace Code.NinthLesson
                 {
                     ParentParts = CreateFractalPartArray(parentParts, parentParts.Length),
                     LevelParts = CreateFractalPartArray(levelParts, levelParts.Length),
-                    LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length)
+                    LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length),
+                    SpinAngleDelta = spinAngleDelta,
+                    Scale = scale
                 };
                 JobHandle newJobHandle = parallelThread.Schedule(levelParts.Length, 0);
                 newJobHandle.Complete();
@@ -189,31 +189,13 @@ namespace Code.NinthLesson
             return fractalPartArray;
         }
 
-        private NativeArray<Matrix4x4> CreateMatricesArray(Matrix4x4[] matrix, int length)
+        private NativeArray<float4x4> CreateMatricesArray(float4x4[] matrix, int length)
         {
-            NativeArray<Matrix4x4> matrices = new NativeArray<Matrix4x4>(length, Allocator.Persistent);
+            NativeArray<float4x4> matrices = new NativeArray<float4x4>(length, Allocator.Persistent);
 
             for (int i = 0; i < length; i++)
             {
-                matrices[i] = new Matrix4x4
-                {
-                    m00 = matrix[i].m00,
-                    m01 = matrix[i].m01,
-                    m02 = matrix[i].m02,
-                    m03 = matrix[i].m03,
-                    m10 = matrix[i].m10,
-                    m11 = matrix[i].m11,
-                    m12 = matrix[i].m12,
-                    m13 = matrix[i].m13,
-                    m20 = matrix[i].m20,
-                    m21 = matrix[i].m21,
-                    m22 = matrix[i].m22,
-                    m23 = matrix[i].m23,
-                    m30 = matrix[i].m30,
-                    m31 = matrix[i].m31,
-                    m32 = matrix[i].m32,
-                    m33 = matrix[i].m33,
-                };
+                matrices[i] = matrix[i];
             }
 
             return matrices;
@@ -224,21 +206,21 @@ namespace Code.NinthLesson
         {
             [ReadOnly] public NativeArray<FractalPart> ParentParts;
             public NativeArray<FractalPart> LevelParts;
-            public NativeArray<Matrix4x4> LevelMatrices;
+            [WriteOnly] public NativeArray<float4x4> LevelMatrices;
+            [ReadOnly] public float SpinAngleDelta;
+            [ReadOnly] public float Scale;
 
             public void Execute(int fpi)
             {
                 var parent = ParentParts[fpi / CHILD_COUNT];
                 var part = LevelParts[fpi];
-                part.SpinAngle += _spinAngelDelta;
-                _deltaRotation = Quaternion.Euler(.0f, part.SpinAngle, .0f);
-                part.WorldRotation = parent.WorldRotation * part.Rotation * _deltaRotation;
+                part.SpinAngle += SpinAngleDelta;
+                part.WorldRotation = mul(parent.WorldRotation, mul(part.Rotation, quaternion.RotateY(part.SpinAngle)));
                 part.WorldPosition = parent.WorldPosition +
-                                     parent.WorldRotation * (POSITION_OFFSET * _scale * part.Direction);
+                                     mul(parent.WorldRotation, POSITION_OFFSET * Scale * part.Direction);
                 LevelParts[fpi] = part;
-                LevelMatrices[fpi] = Matrix4x4.TRS(part.WorldPosition, part.WorldRotation, _scale * Vector3.one);
+                LevelMatrices[fpi] = float4x4.TRS(part.WorldPosition, part.WorldRotation, float3(Scale));
             }
         }
     }
 }
-
