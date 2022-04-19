@@ -1,7 +1,6 @@
 ﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
-using Unity.Mathematics;
 using UnityEngine;
 using static Unity.Mathematics.math;
 using float3 = Unity.Mathematics.float3;
@@ -34,6 +33,8 @@ namespace Code.NinthLesson
         private FractalPart[][] _parts;
         private float4x4[][] _matrices;
         private ComputeBuffer[] _matricesBuffers;
+        private FractalPart _rootPart;
+        private float _spinAngleDelta;
 
         private static readonly int MatricesId = Shader.PropertyToID("_Matrices");
         private static MaterialPropertyBlock _propertyBlock;
@@ -116,20 +117,24 @@ namespace Code.NinthLesson
             Rotation = Rotations[childIndex],
         };
 
-        private void FixedUpdate()
+        private void Update()
         {
-            var spinAngelDelta = _speedRotation * PI * Time.deltaTime;
-            var rootPart = _parts[0][0];
-            rootPart.SpinAngle += spinAngelDelta;
-            rootPart.WorldRotation = mul(rootPart.Rotation, quaternion.RotateY(rootPart.SpinAngle));
-            _parts[0][0] = rootPart;
-            _matrices[0][0] = float4x4.TRS(rootPart.WorldPosition, rootPart.WorldRotation, float3(Vector3.one));
+            _spinAngleDelta = _speedRotation * 0.125f * PI * Time.deltaTime;
+            _rootPart = _parts[0][0];
+            _rootPart.SpinAngle += _spinAngleDelta;
+            _rootPart.WorldRotation = mul(_rootPart.Rotation, quaternion.RotateY(_rootPart.SpinAngle));
+            _parts[0][0] = _rootPart;
+            _matrices[0][0] = float4x4.TRS(_rootPart.WorldPosition, _rootPart.WorldRotation, float3(Vector3.one));
 
-            ParallelCalculate(spinAngelDelta);
-            Bounds(rootPart);
+            ParallelCalculate();
         }
 
-        private void ParallelCalculate(float spinAngleDelta)
+        private void LateUpdate()
+        {
+            Bounds();
+        }
+
+        private void ParallelCalculate()
         {
             for (var li = 1; li < _parts.Length; li++)
             {
@@ -144,11 +149,15 @@ namespace Code.NinthLesson
                     ParentParts = CreateFractalPartArray(parentParts, parentParts.Length),
                     LevelParts = CreateFractalPartArray(levelParts, levelParts.Length),
                     LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length),
-                    SpinAngleDelta = spinAngleDelta,
+                    SpinAngleDelta = _spinAngleDelta,
                     Scale = scale
                 };
                 JobHandle newJobHandle = parallelThread.Schedule(levelParts.Length, 0);
                 newJobHandle.Complete();
+
+                _parts[li - 1] = ReturnFractalPartArray(parallelThread.ParentParts, _parts[li - 1].Length);
+                _parts[li] = ReturnFractalPartArray(parallelThread.LevelParts, _parts[li].Length);
+                _matrices[li] = ReturnMatricesArray(parallelThread.LevelMatrices, _matrices[li].Length);
 
                 parallelThread.LevelParts.Dispose();
                 parallelThread.ParentParts.Dispose();
@@ -156,23 +165,41 @@ namespace Code.NinthLesson
             }
         }
 
-        private void Bounds(FractalPart rootPart)
+        private void Bounds()
         {
-            var bounds = new Bounds(rootPart.WorldPosition, 3f * Vector3.one);
+            var bounds = new Bounds(_rootPart.WorldPosition, 3f * float3(Vector3.one));
             for (var i = 0; i < _matricesBuffers.Length; i++)
             {
                 var buffer = _matricesBuffers[i];
                 buffer.SetData(_matrices[i]);
                 _propertyBlock.SetBuffer(MatricesId, buffer);
                 _material.SetBuffer(MatricesId, buffer);
-                Graphics.DrawMeshInstancedProcedural(_mesh, 0, _material, bounds,
-                    buffer.count, _propertyBlock);
+                Graphics.DrawMeshInstancedProcedural(_mesh, 0, _material, bounds, buffer.count, _propertyBlock);
             }
         }
 
         private NativeArray<FractalPart> CreateFractalPartArray(FractalPart[] fractalParts, int length)
         {
             NativeArray<FractalPart> fractalPartArray = new NativeArray<FractalPart>(length, Allocator.Persistent);
+
+            for (int i = 0; i < length; i++)
+            {
+                fractalPartArray[i] = new FractalPart
+                {
+                    Direction = fractalParts[i].Direction,
+                    Rotation = fractalParts[i].Rotation,
+                    WorldPosition = fractalParts[i].WorldPosition,
+                    WorldRotation = fractalParts[i].WorldRotation,
+                    SpinAngle = fractalParts[i].SpinAngle,
+                };
+            }
+
+            return fractalPartArray;
+        }
+
+        private FractalPart[] ReturnFractalPartArray(NativeArray<FractalPart> fractalParts, int length)
+        {
+            FractalPart[] fractalPartArray = new FractalPart[length];
 
             for (int i = 0; i < length; i++)
             {
@@ -201,7 +228,19 @@ namespace Code.NinthLesson
             return matrices;
         }
 
-        [BurstCompile]
+        private float4x4[] ReturnMatricesArray(NativeArray<float4x4> matrix, int length)
+        {
+            float4x4[] matrices = new float4x4[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                matrices[i] = matrix[i];
+            }
+
+            return matrices;
+        }
+
+        [BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
         public struct JobStructParallel : IJobParallelFor
         {
             [ReadOnly] public NativeArray<FractalPart> ParentParts;
