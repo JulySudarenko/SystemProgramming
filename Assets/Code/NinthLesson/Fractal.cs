@@ -32,6 +32,9 @@ namespace Code.NinthLesson
 
         private FractalPart[][] _parts;
         private float4x4[][] _matrices;
+
+        private NativeArray<FractalPart>[][] _partsJoNativeArrays;
+        private NativeArray<float4x4>[][] _matricesJobArrays;
         private ComputeBuffer[] _matricesBuffers;
         private FractalPart _rootPart;
         private float _spinAngleDelta;
@@ -149,7 +152,7 @@ namespace Code.NinthLesson
                 {
                     ParentParts = CreateFractalPartArray(parentParts, parentParts.Length),
                     LevelParts = CreateFractalPartArray(levelParts, levelParts.Length),
-                    LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length),
+                    LevelMatrices = CreateMatricesArray(levelMatrices, levelMatrices.Length),                    
                     SpinAngleDelta = _spinAngleDelta,
                     Scale = scale
                 };
